@@ -36,5 +36,6 @@
     function renderPartnership(item) { const socials = (item.social || []).map(([label, url]) => `<a href="${url}" target="_blank" rel="noopener">${label}</a>`).join(''); const poster = item.images[0] || 'setembro1.jpg'; return `<article class="partnership-detail" id="${item.id}"><div class="partnership-copy"><span class="partner-location">${item.place}</span><h2>${item.title}</h2><p>${item.text}</p>${socials ? `<div class="partner-links">${socials}</div>` : ''}${item.note ? `<p class="media-empty">${item.note}</p>` : ''}</div><div class="partnership-media">${renderMedia(item.images, 'image', `Imagem de ${item.title}`, poster)}${renderMedia(item.videos, 'video', `Vídeo de ${item.title}`, poster)}</div></article>`; }
     document.querySelector('#partnership-list').innerHTML = [...partnerships, institutional].map(renderPartnership).join('');
   </script>
+  <script src="script.js"></script>
 </body>
 </html>
