@@ -127,6 +127,9 @@ nav a.nav-donate:hover { background: #55e0da; }
 .partner-more { background: transparent; border: 1px solid var(--cyan); border-radius: 999px; color: var(--blue); display: flex; font-size: .76rem; font-weight: 800; letter-spacing: .06em; margin-top: 22px; padding: 9px 16px; text-decoration: none; text-transform: uppercase; transition: background .2s, border-color .2s, color .2s; width: max-content; }
 .partner-more:hover { background: var(--cyan); border-color: var(--cyan); color: var(--navy); }
 .partnership-intro { background: var(--blue); color: #fff; padding: 92px 0 78px; }
+.partnership-intro-grid { align-items: center; display: grid; gap: 42px; grid-template-columns: 1fr minmax(220px, .42fr); }
+.partnership-intro-media { align-self: start; grid-column: 2; grid-row: 1; justify-self: end; max-width: 320px; }
+.partnership-intro-media video { aspect-ratio: 16 / 9; background: #031127; border: 1px solid rgba(255, 255, 255, .28); display: block; object-fit: contain; width: 100%; }
 .partnership-intro h1 { color: #fff; font-size: clamp(2.8rem, 6vw, 5rem); max-width: 760px; }
 .partnership-intro p { color: #e8f2ff; font-size: 1.12rem; max-width: 680px; }
 .partnership-list { background: #f0f5fb; }
@@ -134,6 +137,9 @@ nav a.nav-donate:hover { background: #55e0da; }
 .partnership-detail:last-child { margin-bottom: 0; }
 .partnership-copy h2 { color: var(--navy); font-size: clamp(1.7rem, 3vw, 2.5rem); }
 .partnership-copy p { color: var(--muted); }
+.partner-profile-media { display: grid; gap: 10px; grid-template-columns: repeat(3, 1fr); margin: 22px 0 4px; }
+.partner-profile-media .media-trigger { aspect-ratio: 4 / 3; }
+.partner-profile-media img { height: 100%; object-fit: cover; width: 100%; }
 .partnership-media-grid { display: grid; gap: 12px; grid-template-columns: repeat(3, 1fr); }
 .media-kind + .media-kind { border-top: 1px solid var(--line); margin-top: 28px; padding-top: 24px; }
 .media-kind h3 { color: var(--navy); font-size: 1rem; margin-bottom: 14px; }
@@ -231,6 +237,7 @@ footer a:hover { color: var(--cyan); }
   .impact-card:last-child { grid-column: 1 / -1; max-width: calc(50% - 11px); }
   .campaign-grid { grid-template-columns: 1fr 1fr; }
   .partnership-detail { gap: 28px; grid-template-columns: 1fr; }
+  .partnership-intro-grid { grid-template-columns: 1fr minmax(180px, .45fr); }
 }
 
 @media (max-width: 760px) {
@@ -242,6 +249,9 @@ footer a:hover { color: var(--cyan); }
   section { padding: 74px 0; }
   .about-grid, .vm-grid, .partners-grid, .story-images, .foot-grid, .contribution-grid { grid-template-columns: 1fr; }
   .partnership-detail { padding: 24px 20px; }
+  .partnership-intro-grid { align-items: start; gap: 24px; grid-template-columns: 1fr; }
+  .partnership-intro-media { grid-column: auto; grid-row: auto; justify-self: start; max-width: 420px; }
+  .partner-profile-media { grid-template-columns: repeat(2, 1fr); }
   .about-grid { gap: 48px; }
   .about-grid figure { margin-right: 12px; }
   .goals-grid { grid-template-columns: 1fr; }
