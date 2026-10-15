@@ -80,13 +80,55 @@
         <div>
           <span class="section-kicker">Brasil e mundo</span>
           <h1>Parcerias missionárias</h1>
-          <p>Encontre abaixo a descrição de cada parceria, suas imagens e seus vídeos.</p>
+          <p>Conheça as histórias das nossas parcerias e teste o que você aprendeu em cada quiz missionário.</p>
         </div>
       </div>
     </section>
 
     <section class="partnership-list">
-      <div class="wrap" id="partnership-list"></div>
+      <div class="wrap">
+        <div class="partnership-tabs" role="tablist" aria-label="Conteúdo de parcerias">
+          <button class="partnership-tab" id="tab-parcerias" type="button" role="tab" aria-selected="true" aria-controls="painel-parcerias" tabindex="0">Nossas parcerias</button>
+          <button class="partnership-tab" id="tab-quiz" type="button" role="tab" aria-selected="false" aria-controls="painel-quiz" tabindex="-1">Você conhece os nossos missionários?</button>
+        </div>
+        <div class="partnership-tabpanel" id="painel-parcerias" role="tabpanel" aria-labelledby="tab-parcerias" tabindex="0">
+          <div id="partnership-list"></div>
+        </div>
+        <div class="partnership-tabpanel" id="painel-quiz" role="tabpanel" aria-labelledby="tab-quiz" tabindex="0" hidden>
+          <div class="mission-quiz-heading">
+            <span class="section-kicker">Aprenda e participe</span>
+            <h2>Você conhece os nossos missionários?</h2>
+            <p>Escolha uma parceria e responda ao quiz sobre o país e o trabalho missionário.</p>
+          </div>
+          <div class="mission-quiz-grid" id="mission-quiz-list"></div>
+          <section class="mission-quiz-player" id="mission-quiz-player" aria-label="Quiz missionário" hidden>
+            <div class="quiz-player-toolbar">
+              <button class="quiz-back" id="quiz-back" type="button">← Todos os quizzes</button>
+            </div>
+            <div class="quiz-question-card" id="quiz-question-card">
+              <div class="quiz-question-meta">
+                <span class="quiz-country" id="quiz-country"></span>
+                <span class="quiz-question-count" id="quiz-question-count"></span>
+              </div>
+              <div class="quiz-progress" id="quiz-progress" role="progressbar" aria-label="Progresso do quiz" aria-valuemin="0" aria-valuemax="10" aria-valuenow="1"><span id="quiz-progress-fill"></span></div>
+              <h3 id="quiz-question" tabindex="-1"></h3>
+              <div class="quiz-options" id="quiz-options" role="group" aria-labelledby="quiz-question"></div>
+              <p class="quiz-feedback" id="quiz-feedback" role="status" aria-live="polite" hidden></p>
+              <button class="button button-primary quiz-next" id="quiz-next" type="button" hidden>Próxima pergunta <span aria-hidden="true">→</span></button>
+            </div>
+            <div class="quiz-result" id="quiz-result" hidden>
+              <span class="quiz-result-icon" aria-hidden="true">✓</span>
+              <span class="section-kicker">Desafio concluído</span>
+              <h3 id="quiz-result-score"></h3>
+              <p id="quiz-result-message"></p>
+              <div class="quiz-result-actions">
+                <button class="button button-primary" id="quiz-retry" type="button">Tentar novamente</button>
+                <button class="button button-secondary quiz-result-back" id="quiz-result-back" type="button">Ver outros quizzes</button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -129,25 +171,154 @@
     <button class="media-lightbox-arrow media-lightbox-next" type="button" aria-label="Próxima mídia">&#10095;</button>
   </div>
 
+  <script src="quiz-data.js"></script>
   <script>
     const mediaRoot = 'midias/';
     const partnerships = [
-      { id: 'egmar', place: 'Nova Prata, RS', title: 'Pr. Egmar', text: 'A Igreja Batista Filadélfia é nossa parceria missionária dentro do Rio Grande do Sul. Contribuímos mensalmente para o sustento da igreja.', profileImages: ['imagens/Pr Egmar.png'], social: [['@mesquitaegmar', 'https://www.instagram.com/mesquitaegmar/']], images: ['novaprata1.jpg', 'novaprata2.jpg', 'novaprata3.jpg'], videos: ['novapratavideo1.mp4'] },
-      { id: 'danijel', place: 'Sérvia', title: 'Pr. Danijel Naskovski', text: 'Pastor da Igreja Cristã Batista Betel da Sérvia, Danijel é casado com Suzana e pai da Emi. Além de liderar a igreja, trabalha com crianças e adolescentes.', profileImages: ['imagens/Pr Danijel.png'], social: [['@danijelnaskovski', 'https://www.instagram.com/danijelnaskovski/'], ['@n_emix', 'https://www.instagram.com/n_emix/']], images: ['servia1.jpg', 'servia2.jpg', 'servia3.jpg', 'servia4.jpg', 'servia5.jpg', 'servia6.jpg'], videos: [] },
-      { id: 'luciano', place: 'Nepal', title: 'Projeto Pastores do Nepal', text: 'Parceria entre a IBFC e pastores das montanhas e vilarejos do Nepal, iniciada pelo Pr. Luciano Santos. O projeto oferece formação, treinamento e sustento pastoral.', profileImages: ['imagens/Pr Luciano.png'], social: [['@luciano.camboja', 'https://www.instagram.com/luciano.camboja/']], images: [], videos: [], note: 'A pasta midias ainda não possui arquivos identificados especificamente como Nepal.' },
-      { id: 'oriente-medio', place: 'Oriente Médio', title: 'Pr. F.M. e J.M.', text: 'O casal e seus três filhos serviram na Albânia desde 2015 e, em 2023, seguiram para um país fechado ao Evangelho no Oriente Médio.', social: [], images: ['oriente1.jpg'], videos: [] },
-      { id: 'tanzania', place: 'Tanzânia', title: 'Pr. Rafael e Fernanda Silva', text: 'Uma equipe de médicos e fisioterapeutas voluntários percorre vilarejos de Morogoro levando educação em saúde e medicamentos gratuitos. A Hospedagem Solidária recebe mães e filhos com deficiência.', profileImages: ['imagens/Pr Rafael.png'], social: [['@rafao_ba', 'https://www.instagram.com/rafao_ba/'], ['@fezinhacordeiro', 'https://www.instagram.com/fezinhacordeiro/'], ['@fisioterapeutassemfronteiras', 'https://www.instagram.com/fisioterapeutassemfronteiras/']], images: ['tanzania1.jpg', 'tanzania2.jpg', 'tanzania3.jpg', 'tanzania4.jpg', 'tanzania5.jpg', 'tanzania6.jpg', 'tanzania7.jpg', 'tanzania8.jpg', 'tanzania11.jpg', 'tanzania12.jpg', 'tanzania13.jpg', 'tanzania14.jpg', 'tanzania15.jpg', 'tanzania16.jpg'], videos: ['tanzaniavideo1.mp4', 'tanzaniavideo4.mp4'] },
-      { id: 'disney', place: 'Paterna, Espanha', title: 'Pr. Disney e Hilda', text: 'Desde setembro de 2013, atuam na Igreja Comunidad Junts Per Tú, em Valência, alcançando famílias por meio de ação social, alimentos e auxílio.', profileImages: ['imagens/Pr Disney e Hilda.png'], social: [['@disneymacedo', 'https://www.instagram.com/disneymacedo/']], images: [], videos: [], note: 'A pasta midias ainda não possui arquivos identificados especificamente como Espanha.' },
-      { id: 'ronaldo', place: 'Sertão do Moxotó, PE', title: 'Pr. Ronaldo e Joana', text: 'Atuam em Inajá, onde pastoreiam a igreja e desenvolvem o trabalho da ONG Pão é Vida, unindo evangelização e combate à exclusão social.', profileImages: ['imagens/Pr Ronaldo e Joana.png'], social: [['@ongpaoevida', 'https://www.instagram.com/ongpaoevida/'], ['@joanahenzel', 'https://www.instagram.com/joanahenzel/']], images: ['sertao1.jpg', 'sertao2.jpg', 'sertao3.jpg', 'sertao4.jpg', 'sertao6.jpg', 'sertao7.jpg'], videos: ['sertãovideo1.mp4', 'sertãovideo2.mp4', 'sertãovideo3.mp4', 'sertãovideo4.mp4', 'sertãovideo5.mp4', 'sertãovideo6.mp4', 'sertãovideo7.mp4'] },
-      { id: 'fredy', place: 'Guiné-Bissau', title: 'Pr. Fredy e Raquel Schafer | Timóteo e Agnes Schafer', text: 'Há mais de duas décadas, servem na aldeia de Quebo em uma missão formada por igreja, ambulatório, escola, internato e espaço agropecuário. O alcance de pessoas é realizado por meio da Clínica Médica e da Escola Campos Irmãos, onde cerca de 1.000 crianças têm a oportunidade de estudar e transformar suas histórias. Além disso, a pregação da palavra, o abrigo para crianças em situação de vulnerabilidade e o apoio aos missionários são ações essenciais. Você também pode se envolver diretamente com as crianças por meio da adoção escolar, contribuindo para o seu desenvolvimento e bem-estar.', profileImages: ['imagens/Fred e Raquel.png', 'imagens/Timoteo e Agnes.png'], social: [['@fredyeraquelschafer', 'https://www.instagram.com/fredyeraquelschafer/'], ['@tymschafer', 'https://www.instagram.com/tymschafer/'], ['@sumialetra', 'https://www.instagram.com/sumialetra/']], images: ['guiné1.jpg', 'guiné2.jpg', 'guiné3.jpg', 'guiné4.jpg', 'guiné5.jpg'], videos: ['guinévideo1.mp4'] }
+      { id: 'egmar', place: 'Nova Prata, RS', title: 'Pr. Egmar', text: 'A Igreja Batista Filadélfia é nossa parceria missionária dentro do Rio Grande do Sul. Contribuímos mensalmente para o sustento da igreja.', profileImages: ['imagens/Pr Egmar.png'], social: [['@mesquitaegmar', 'https://www.instagram.com/mesquitaegmar/']], images: ['novaprata1.jpg', 'novaprata2.jpg', 'novaprata3.jpg'], videos: ['novapratavideo1.mp4'], quiz: { missionaries: 'Egmar', place: 'Nova Prata', url: 'https://share.gemini.google/XrqexRu82wuh' } },
+      { id: 'danijel', place: 'Sérvia', title: 'Pr. Danijel Naskovski', text: 'Pastor da Igreja Cristã Batista Betel da Sérvia, Danijel é casado com Suzana e pai da Emi. Além de liderar a igreja, trabalha com crianças e adolescentes.', profileImages: ['imagens/Pr Danijel.png'], social: [['@danijelnaskovski', 'https://www.instagram.com/danijelnaskovski/'], ['@n_emix', 'https://www.instagram.com/n_emix/']], images: ['servia1.jpg', 'servia2.jpg', 'servia3.jpg', 'servia4.jpg', 'servia5.jpg', 'servia6.jpg'], videos: [], quiz: { missionaries: 'Danijel e Suzana', place: 'Sérvia', url: 'https://share.gemini.google/ii22j5Ht447O' } },
+      { id: 'luciano', place: 'Nepal', title: 'Projeto Pastores do Nepal', text: 'Parceria entre a IBFC e pastores das montanhas e vilarejos do Nepal, iniciada pelo Pr. Luciano Santos. O projeto oferece formação, treinamento e sustento pastoral.', profileImages: ['imagens/Pr Luciano.png'], social: [['@luciano.camboja', 'https://www.instagram.com/luciano.camboja/']], images: [], videos: [], note: 'A pasta midias ainda não possui arquivos identificados especificamente como Nepal.', quiz: { missionaries: 'Pastores Locais', place: 'Nepal', url: 'https://share.gemini.google/60F00094bGMB' } },
+      { id: 'oriente-medio', place: 'Oriente Médio', title: 'Pr. F.M. e J.M.', text: 'O casal e seus três filhos serviram na Albânia desde 2015 e, em 2023, seguiram para um país fechado ao Evangelho no Oriente Médio.', social: [], images: ['oriente1.jpg'], videos: [], quiz: { missionaries: 'Marques', place: 'Albânia e outros', url: 'https://share.gemini.google/SmzvdbrhG193' } },
+      { id: 'tanzania', place: 'Tanzânia', title: 'Pr. Rafael e Fernanda Silva', text: 'Uma equipe de médicos e fisioterapeutas voluntários percorre vilarejos de Morogoro levando educação em saúde e medicamentos gratuitos. A Hospedagem Solidária recebe mães e filhos com deficiência.', profileImages: ['imagens/Pr Rafael.png'], social: [['@rafao_ba', 'https://www.instagram.com/rafao_ba/'], ['@fezinhacordeiro', 'https://www.instagram.com/fezinhacordeiro/'], ['@fisioterapeutassemfronteiras', 'https://www.instagram.com/fisioterapeutassemfronteiras/']], images: ['tanzania1.jpg', 'tanzania2.jpg', 'tanzania3.jpg', 'tanzania4.jpg', 'tanzania5.jpg', 'tanzania6.jpg', 'tanzania7.jpg', 'tanzania8.jpg', 'tanzania11.jpg', 'tanzania12.jpg', 'tanzania13.jpg', 'tanzania14.jpg', 'tanzania15.jpg', 'tanzania16.jpg'], videos: ['tanzaniavideo1.mp4', 'tanzaniavideo4.mp4'], quiz: { missionaries: 'Rafael e Fernanda', place: 'Tanzânia', url: 'https://share.gemini.google/vrPTtRuXOmB3' } },
+      { id: 'disney', place: 'Paterna, Espanha', title: 'Pr. Disney e Hilda', text: 'Desde setembro de 2013, atuam na Igreja Comunidad Junts Per Tú, em Valência, alcançando famílias por meio de ação social, alimentos e auxílio.', profileImages: ['imagens/Pr Disney e Hilda.png'], social: [['@disneymacedo', 'https://www.instagram.com/disneymacedo/']], images: [], videos: [], note: 'A pasta midias ainda não possui arquivos identificados especificamente como Espanha.', quiz: { missionaries: 'Disney e Hilda', place: 'Espanha', url: 'https://share.gemini.google/IrYmiBj7sYim' } },
+      { id: 'ronaldo', place: 'Sertão do Moxotó, PE', title: 'Pr. Ronaldo e Joana', text: 'Atuam em Inajá, onde pastoreiam a igreja e desenvolvem o trabalho da ONG Pão é Vida, unindo evangelização e combate à exclusão social.', profileImages: ['imagens/Pr Ronaldo e Joana.png'], social: [['@ongpaoevida', 'https://www.instagram.com/ongpaoevida/'], ['@joanahenzel', 'https://www.instagram.com/joanahenzel/']], images: ['sertao1.jpg', 'sertao2.jpg', 'sertao3.jpg', 'sertao4.jpg', 'sertao6.jpg', 'sertao7.jpg'], videos: ['sertãovideo1.mp4', 'sertãovideo2.mp4', 'sertãovideo3.mp4', 'sertãovideo4.mp4', 'sertãovideo5.mp4', 'sertãovideo6.mp4', 'sertãovideo7.mp4'], quiz: { missionaries: 'Ronaldo e Joana', place: 'Sertão de Moxotó', url: 'https://share.gemini.google/oFGWdcszvqo2' } },
+      { id: 'fredy', place: 'Guiné-Bissau', title: 'Pr. Fredy e Raquel Schafer | Timóteo e Agnes Schafer', text: 'Há mais de duas décadas, servem na aldeia de Quebo em uma missão formada por igreja, ambulatório, escola, internato e espaço agropecuário. O alcance de pessoas é realizado por meio da Clínica Médica e da Escola Campos Irmãos, onde cerca de 1.000 crianças têm a oportunidade de estudar e transformar suas histórias. Além disso, a pregação da palavra, o abrigo para crianças em situação de vulnerabilidade e o apoio aos missionários são ações essenciais. Você também pode se envolver diretamente com as crianças por meio da adoção escolar, contribuindo para o seu desenvolvimento e bem-estar.', profileImages: ['imagens/Fred e Raquel.png', 'imagens/Timoteo e Agnes.png'], social: [['@fredyeraquelschafer', 'https://www.instagram.com/fredyeraquelschafer/'], ['@tymschafer', 'https://www.instagram.com/tymschafer/'], ['@sumialetra', 'https://www.instagram.com/sumialetra/']], images: ['guiné1.jpg', 'guiné2.jpg', 'guiné3.jpg', 'guiné4.jpg', 'guiné5.jpg'], videos: ['guinévideo1.mp4'], quiz: { missionaries: 'Fred e Raquel', place: 'Guiné-Bissau', url: 'https://share.gemini.google/XZS45bSWtLz6' } }
     ];
     const institutional = { id: 'institucional', place: 'Conteúdos institucionais', title: 'Campanhas e notícias do CONSEMI', text: 'Materiais que apresentam o trabalho do CONSEMI, o Setembro Missionário e o Projeto Alcance.', images: ['setembro1.jpg', 'setembro2.jpg', 'setembro3.jpg', 'setembro4.jpg', 'setembro5.jpg', 'setembro6.jpg', 'setembro8.jpg'], videos: ['mesmissoes1.mp4', 'mesmissoes2.mp4', 'mesmissoes4.mp4', 'mesmissoes13.mp4', 'projetoAlcancevideo.mp4'] };
     const instagramIcon = '<svg class="instagram-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg>';
     const mediaItems = [];
     function renderMedia(files, type, title, poster, partnershipId) { if (!files.length) return '<p class="media-empty">Nenhum arquivo específico identificado para esta parceria.</p>'; return `<div class="media-kind"><h3>${type === 'image' ? 'Imagens' : 'Vídeos'}</h3><div class="partnership-media-grid">${files.map(file => { const index = mediaItems.push({ src: `${mediaRoot}${file}`, type, title, poster: `${mediaRoot}${poster}`, partnershipId }) - 1; return `<button class="media-trigger" type="button" data-media-index="${index}" aria-label="Abrir ${type === 'image' ? 'imagem' : 'vídeo'} de ${title}">${type === 'image' ? `<img src="${mediaRoot}${file}" alt="${title}">` : `<video preload="metadata" poster="${mediaRoot}${poster}"><source src="${mediaRoot}${file}" type="video/mp4"></video>`}</button>`; }).join('')}</div></div>`; }
     function renderProfileMedia(files, title, partnershipId) { if (!files?.length) return ''; return `<div class="partner-profile-media" aria-label="Imagens dos missionários">${files.map(file => { const index = mediaItems.push({ src: file, type: 'image', title, partnershipId }) - 1; return `<button class="media-trigger" type="button" data-media-index="${index}" aria-label="Abrir imagem de ${title}"><img src="${file}" alt="${title}"></button>`; }).join('')}</div>`; }
-    function renderPartnership(item) { const socials = (item.social || []).map(([label, url]) => `<a href="${url}" target="_blank" rel="noopener">${instagramIcon}${label}</a>`).join(''); const poster = item.images[0] || 'setembro1.jpg'; return `<article class="partnership-detail" id="${item.id}"><div class="partnership-copy"><span class="partner-location">${item.place}</span><h2>${item.title}</h2><p>${item.text}</p>${renderProfileMedia(item.profileImages, `Imagem dos missionários de ${item.title}`, item.id)}${socials ? `<div class="partner-links">${socials}</div>` : ''}${item.note ? `<p class="media-empty">${item.note}</p>` : ''}</div><div class="partnership-media">${renderMedia(item.images, 'image', `Imagem de ${item.title}`, poster, item.id)}${renderMedia(item.videos, 'video', `Vídeo de ${item.title}`, poster, item.id)}</div></article>`; }
+    function renderQuizLink(quizId) { return `<button class="button button-primary partnership-quiz-link partnership-quiz-start" type="button" data-quiz-id="${quizId}">Começar quiz <span aria-hidden="true">→</span></button>`; }
+    function renderPartnership(item) { const socials = (item.social || []).map(([label, url]) => `<a href="${url}" target="_blank" rel="noopener">${instagramIcon}${label}</a>`).join(''); const poster = item.images[0] || 'setembro1.jpg'; return `<article class="partnership-detail" id="${item.id}"><div class="partnership-copy"><span class="partner-location">${item.place}</span><h2>${item.title}</h2><p>${item.text}</p>${renderProfileMedia(item.profileImages, `Imagem dos missionários de ${item.title}`, item.id)}${socials ? `<div class="partner-links">${socials}</div>` : ''}${item.note ? `<p class="media-empty">${item.note}</p>` : ''}${item.quiz ? renderQuizLink(item.id) : ''}</div><div class="partnership-media">${renderMedia(item.images, 'image', `Imagem de ${item.title}`, poster, item.id)}${renderMedia(item.videos, 'video', `Vídeo de ${item.title}`, poster, item.id)}</div></article>`; }
     document.querySelector('#partnership-list').innerHTML = [...partnerships, institutional].map(renderPartnership).join('');
+    document.querySelector('#mission-quiz-list').innerHTML = partnerships.filter(item => item.quiz).map(item => `<article class="mission-quiz-card"><div class="mission-quiz-card-top"><span class="mission-quiz-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path></svg></span><span class="mission-quiz-label">Desafio missionário</span></div><span class="partner-location">${item.quiz.place}</span><h3>${item.quiz.missionaries}</h3><p>Conheça melhor este lugar e o trabalho dos nossos missionários.</p><button class="button button-primary partnership-quiz-link partnership-quiz-start" type="button" data-quiz-id="${item.id}">Começar quiz <span aria-hidden="true">→</span></button></article>`).join('');
+    const tabs = [...document.querySelectorAll('.partnership-tab')];
+    const tabPanels = tabs.map(tab => document.querySelector(`#${tab.getAttribute('aria-controls')}`));
+    function activateTab(index, moveFocus = false) {
+      tabs.forEach((tab, tabIndex) => {
+        const isActive = tabIndex === index;
+        tab.setAttribute('aria-selected', String(isActive));
+        tab.tabIndex = isActive ? 0 : -1;
+        tabPanels[tabIndex].hidden = !isActive;
+      });
+      if (moveFocus) tabs[index].focus();
+    }
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => activateTab(index));
+      tab.addEventListener('keydown', event => {
+        const nextIndex = event.key === 'ArrowRight' ? (index + 1) % tabs.length : event.key === 'ArrowLeft' ? (index - 1 + tabs.length) % tabs.length : event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : -1;
+        if (nextIndex < 0) return;
+        event.preventDefault();
+        activateTab(nextIndex, true);
+      });
+    });
+    const quizPlayer = document.querySelector('#mission-quiz-player');
+    const quizGrid = document.querySelector('#mission-quiz-list');
+    const quizQuestionCard = document.querySelector('#quiz-question-card');
+    const quizResult = document.querySelector('#quiz-result');
+    const quizOptions = document.querySelector('#quiz-options');
+    const quizFeedback = document.querySelector('#quiz-feedback');
+    const quizNext = document.querySelector('#quiz-next');
+    let activeQuiz;
+    let activeQuizId;
+    let activeQuestion = 0;
+    let quizScore = 0;
+    let answerLocked = false;
+    function renderQuizQuestion() {
+      const question = activeQuiz.questions[activeQuestion];
+      const total = activeQuiz.questions.length;
+      document.querySelector('#quiz-country').textContent = partnerships.find(item => item.id === activeQuizId).quiz.place;
+      document.querySelector('#quiz-question-count').textContent = `Pergunta ${activeQuestion + 1} de ${total}`;
+      document.querySelector('#quiz-progress').setAttribute('aria-valuemax', String(total));
+      document.querySelector('#quiz-progress').setAttribute('aria-valuenow', String(activeQuestion + 1));
+      document.querySelector('#quiz-progress-fill').style.width = `${((activeQuestion + 1) / total) * 100}%`;
+      document.querySelector('#quiz-question').textContent = question.question;
+      quizOptions.replaceChildren();
+      question.options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.className = 'quiz-option';
+        button.type = 'button';
+        button.setAttribute('aria-pressed', 'false');
+        const letter = document.createElement('span');
+        letter.className = 'quiz-option-letter';
+        letter.textContent = String.fromCharCode(65 + index);
+        const label = document.createElement('span');
+        label.className = 'quiz-option-text';
+        label.textContent = option;
+        button.append(letter, label);
+        button.addEventListener('click', () => answerQuizQuestion(index));
+        quizOptions.append(button);
+      });
+      quizFeedback.hidden = true;
+      quizFeedback.textContent = '';
+      quizNext.hidden = true;
+      quizNext.textContent = activeQuestion === total - 1 ? 'Ver resultado' : 'Próxima pergunta →';
+      answerLocked = false;
+    }
+    function startQuiz(id) {
+      activeQuizId = id;
+      activeQuiz = window.missionQuizData.find(quiz => quiz.id === id);
+      if (!activeQuiz) throw new Error(`Quiz não encontrado: ${id}`);
+      activeQuestion = 0;
+      quizScore = 0;
+      quizGrid.hidden = true;
+      quizPlayer.hidden = false;
+      quizQuestionCard.hidden = false;
+      quizResult.hidden = true;
+      document.querySelector('#quiz-back').hidden = false;
+      renderQuizQuestion();
+      quizPlayer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelector('#quiz-question').focus({ preventScroll: true });
+    }
+    function answerQuizQuestion(selectedIndex) {
+      if (answerLocked) return;
+      answerLocked = true;
+      const question = activeQuiz.questions[activeQuestion];
+      const correct = selectedIndex === question.correct;
+      if (correct) quizScore++;
+      [...quizOptions.children].forEach((button, index) => {
+        button.disabled = true;
+        button.setAttribute('aria-pressed', String(index === selectedIndex));
+        if (index === question.correct) button.classList.add('is-correct');
+        else if (index === selectedIndex) button.classList.add('is-incorrect');
+      });
+      quizFeedback.classList.toggle('is-correct', correct);
+      quizFeedback.classList.toggle('is-incorrect', !correct);
+      quizFeedback.textContent = correct ? 'Muito bem! Você acertou.' : `Quase! A resposta correta é ${String.fromCharCode(65 + question.correct)}. ${question.options[question.correct]}`;
+      quizFeedback.hidden = false;
+      quizNext.hidden = false;
+    }
+    function showQuizResult() {
+      quizQuestionCard.hidden = true;
+      quizResult.hidden = false;
+      document.querySelector('#quiz-result-score').textContent = `${quizScore} de ${activeQuiz.questions.length} respostas corretas`;
+      document.querySelector('#quiz-result-message').textContent = quizScore === activeQuiz.questions.length
+        ? 'Excelente! Você conhece muito bem esta parceria missionária.'
+        : 'Obrigado por conhecer melhor esta parceria. Você pode tentar novamente ou explorar outro quiz.';
+      document.querySelector('#quiz-back').hidden = true;
+      document.querySelector('#quiz-retry').focus();
+    }
+    function returnToQuizList() {
+      quizPlayer.hidden = true;
+      quizGrid.hidden = false;
+      quizGrid.querySelector('.partnership-quiz-start')?.focus();
+    }
+    document.querySelectorAll('.partnership-quiz-start').forEach(button => button.addEventListener('click', () => {
+      activateTab(1);
+      startQuiz(button.dataset.quizId);
+    }));
+    document.querySelector('#quiz-back').addEventListener('click', returnToQuizList);
+    document.querySelector('#quiz-result-back').addEventListener('click', returnToQuizList);
+    document.querySelector('#quiz-retry').addEventListener('click', () => startQuiz(activeQuizId));
+    quizNext.addEventListener('click', () => {
+      if (activeQuestion === activeQuiz.questions.length - 1) showQuizResult();
+      else {
+        activeQuestion++;
+        renderQuizQuestion();
+        document.querySelector('#quiz-question').focus();
+      }
+    });
     const lightbox = document.querySelector('#media-lightbox');
     const lightboxContent = lightbox.querySelector('.media-lightbox-content');
     let activeMedia = 0;
